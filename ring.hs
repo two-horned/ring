@@ -1,7 +1,7 @@
 module Ring where
 import Debug.Trace
 -- | @'ring' @a @b returns you a valid s that solves
---   gcd(a,b) = sa + tb.
+--   gcd(a,b) = sa + tb, where b is prime.
 --   
 --   If you want to find the corresponding value for t,
 --   you simply solve a linear equation.
