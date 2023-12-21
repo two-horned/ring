@@ -4,9 +4,9 @@ to calculate the gcd of two numbers.
 
 ## Greatest Common Divisor
 To calculate the gcd efficiently,
-we should not use the euclidean algorithm,
-as it may need to perform a linear amount
-of steps to find the result in the worst case.
+we should not use the euclidean algorithm.
+We will see below why the peformance is way
+worse than what we show here.
 
 To calculate the gcd we look
 how much of the number `a` "overlaps",
