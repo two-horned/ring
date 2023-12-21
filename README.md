@@ -38,7 +38,7 @@ from a (`a - b mod a`) to get the overlap of a.
 
 
 Because the `gcd` divides both of these numbers,
-these overlaps needs to be divisible by the gcd.
+these overlaps need to be divisible by the gcd.
 So we can apply the `gcd` to these overlaps 
 (e.g. with recursion) till we don't get any overlaps
 and we have a clear result (`gcd 0 x = |x|`).
