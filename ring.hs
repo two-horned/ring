@@ -39,4 +39,4 @@ egcd a b
   where
     (d,c) = b `divMod` a
     (s,t) = egcd (a - c) c
-    (tt, ss) = egcd c (a - c)
+    (tt, ss) = egcd b a
