@@ -26,12 +26,12 @@ lcm a b = (a `div` gcd a b) * b
 -- from before. 
 -- They were only there for demonstrational purposes.
 
--- | @'ring' @a @b returns a valid s and t that solve
---   gcd(a,b) = sa + tb.
-ring :: Integral a => a -> a -> (a,a)
-ring a 0 = (signum a, 0)
-ring 0 b = (0, signum b)
-ring a b = (((s-t)* d + s),(t-s))
+-- | @'egcd' @a @b returns a valid s and t that solve
+--   gcd(a,b) = sa + tb. Meaning it's the extended gcd.
+egcd :: Integral a => a -> a -> (a,a)
+egcd a 0 = (signum a, 0)
+egcd 0 b = (0, signum b)
+egcd a b = (((s-t)* d + s),(t-s))
   where
     (d,c) = b `divMod` a
-    (s,t) = ring (a - c) c
+    (s,t) = egcd (a - c) c

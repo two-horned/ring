@@ -64,7 +64,7 @@ and the worst case is approaching `5 * log_10 a` (proof can be found online),
 which is far worse, even if it is asymptotically equal.
 
 
-## Finding s and t so gcd(a,b) = s * a + t * b.
+## Extended GCD
 With our new approach to find the gcd, we can try to
 improve a way to find numbers `s` and `t`, so that
 `gcd(a,b) = s*a + t*b`.
