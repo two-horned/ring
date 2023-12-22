@@ -77,12 +77,11 @@ For this we have following cases for a and b:
   c := b mod a
   d := b div a
 
-  gcd(a,b) = gcd(c, a - c) 
-           = s_1 * c + t_1 * (a - c)
-           = s_1 * (d*a - b) + t_1 * (b - (d+1) * a)
-           = s_1 * d*a - s_1 * b + t_1 * b - t_1 * (d+1) * a
-           = (t_1 - s_1) * b + s_1 * d*a - t_1 * (d+1) * a
-           = ((s_1*d) - t_1*(d+1)) * a + (t_1 - s_1) * b
+  gcd(a,b) = gcd(a - c, c) 
+           = s_1 * (a - c) + t_1 * c
+           = s_1 * (a - (b - d*a)) + t_1 * (b - d*a)
+           = s_1 * ((d+1) * a - b) + t_1 * (b - d*a)
+           = (t_1 - s_1) * b + ((s_1 - t_1) * d + s_1) a
   ```
 
     Because we know, that the gcd will never end in a loop (for integer inputs),
