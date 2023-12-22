@@ -72,16 +72,20 @@ improve a way to find numbers `s` and `t`, so that
 For this we have following cases for a and b:
 - Either of them is zero, which will make finding s and t trivial.
 - We find s and t by applying the recursion, which will find s and t
-  of one gcd step further, which we can use to deduce our s and t:
+  of one gcd step further, which we can use to deduce our next s and t:
   ```
   c := b mod a
   d := b div a
 
   gcd(a,b) = gcd(a - c, c) 
-           = s_1 * (a - c) + t_1 * c
-           = s_1 * (a - (b - d*a)) + t_1 * (b - d*a)
-           = s_1 * ((d+1) * a - b) + t_1 * (b - d*a)
-           = (t_1 - s_1) * b + ((s_1 - t_1) * d + s_1) a
+           = s * (a - c) + t * c
+           = s * (a - (b - d*a)) + t * (b - d*a)
+           = s * ((d+1) * a - b) + t * (b - d*a)
+           = ((s - t) * d + s) a + (t - s) * b
+                      ^               ^
+  "our next s" -------'               '
+                                      ' 
+  "our next t" -----------------------'
   ```
 
     Because we know, that the gcd will never end in a loop (for integer inputs),
