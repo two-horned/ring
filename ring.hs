@@ -10,8 +10,10 @@ import Prelude hiding (gcd, lcm)
 --   common divisor of two numbers.
 gcd a 0 = abs a
 gcd 0 b = abs b
-gcd a b = gcd (a - c) c
-  where 
+gcd a b 
+  | abs b < abs a = gcd b a
+  | otherwise = gcd (a - c) c
+  where
     c = b `mod` a
 
 -- | @'lcm' @a @b returns the least
@@ -31,7 +33,10 @@ lcm a b = (a `div` gcd a b) * b
 egcd :: Integral a => a -> a -> (a,a)
 egcd a 0 = (signum a, 0)
 egcd 0 b = (0, signum b)
-egcd a b = (((s-t)* d + s),(t-s))
+egcd a b
+  | abs b < abs a = (ss, tt)
+  | otherwise = (((s-t)* d + s),(t-s))
   where
     (d,c) = b `divMod` a
     (s,t) = egcd (a - c) c
+    (tt, ss) = egcd c (a - c)
