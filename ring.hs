@@ -2,7 +2,6 @@ module Ring where
 
 import Prelude hiding (gcd, lcm)
 
-
 -- We will first introduce our own implementations
 -- of the gcd and the lcd to make it easier for the reader 
 -- to understand why our ring function is built the way it is.
@@ -11,7 +10,7 @@ import Prelude hiding (gcd, lcm)
 --   common divisor of two numbers.
 gcd a 0 = abs a
 gcd 0 b = abs b
-gcd a b = gcd c (a-c)
+gcd a b = gcd (a - c) c
   where 
     c = b `mod` a
 
@@ -32,9 +31,7 @@ lcm a b = (a `div` gcd a b) * b
 ring :: Integral a => a -> a -> (a,a)
 ring a 0 = (signum a, 0)
 ring 0 b = (0, signum b)
-ring a b = ((t * (d+1) - s*d),(s-t))
+ring a b = (((s-t)* d + s),(t-s))
   where
     (d,c) = b `divMod` a
-    (s,t) = ring c (a-c)
-
-
+    (s,t) = ring (a - c) c
