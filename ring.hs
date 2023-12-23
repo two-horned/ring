@@ -21,7 +21,7 @@ gcd a b = gcd' (abs a) (abs b)
 --   common multiple of two numbers.
 lcm a 0 = abs a
 lcm 0 b = abs b
-lcm a b = (a `div` gcd a b) * b
+lcm a b = (a `quot` gcd a b) * b
 
 
 -- For the ring function, 
