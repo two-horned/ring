@@ -1,4 +1,1 @@
-*.hi
-*.o
-steps
-test
+dist-newstyle
