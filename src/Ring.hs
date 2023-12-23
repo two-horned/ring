@@ -26,7 +26,7 @@ lcm 0 b = abs b
 lcm a b = (a `quot` gcd a b) * b
 
 
--- For the ring function, 
+-- For the egcd function, 
 -- we don't actually need the gcd or lcm functions 
 -- from before. 
 -- They were only there for demonstrational purposes.
@@ -34,13 +34,14 @@ lcm a b = (a `quot` gcd a b) * b
 -- | @'egcd' @a @b returns a valid s and t that solve
 --   gcd(a,b) = sa + tb. Meaning it's the extended gcd.
 egcd :: Integral a => a -> a -> (a,a)
-egcd x y = egcd' (abs x) (abs y)
+egcd x y = (signum x * s, signum y * t)
   where
+    (s, t) = egcd' (abs x) (abs y)
     egcd' 0 b = (0, signum b)
     egcd' a b 
-      | b < a = (ss,tt)
-      | otherwise = (((s-t)* d + s),(t-s))
+      | b < a = (fs,ft)
+      | otherwise = (((ss-tt)* d + ss),(tt-ss))
       where
         (d,c) = b `quotRem` a
-        (s,t) = egcd' (a - c) c
-        (tt,ss) = egcd' b a
+        (ss,tt) = egcd' (a - c) c
+        (ft,fs) = egcd' b a
