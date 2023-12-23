@@ -37,7 +37,7 @@ egcd :: Integral a => a -> a -> (a,a)
 egcd x y = (signum x * s, signum y * t)
   where
     (s, t)    = egcd' (abs x) (abs y)
-    egcd' 0 _ = (0, 1)                 -- Always one at base case
+    egcd' 0 _ = (0, 1)                  -- Always one at base case
     egcd' a b 
       | b < a     = (fs, ft)
       | otherwise = (((ss - tt) * q + ss), (tt - ss))
