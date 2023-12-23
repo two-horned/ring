@@ -13,10 +13,10 @@ gcd x y = gcd' (abs x) (abs y)
   where
     gcd' 0 b = b
     gcd' a b 
-      | b < a = gcd' b a
-      | otherwise = gcd' (a - c) c
+      | b < a     = gcd' b a
+      | otherwise = gcd' (a - r) r
       where 
-        c = b `rem` a
+        r = b `rem` a                  -- r: remainder
 
 -- | @'lcm' @a @b returns the least
 --   common multiple of two numbers.
@@ -36,12 +36,12 @@ lcm a b = (a `quot` gcd a b) * b
 egcd :: Integral a => a -> a -> (a,a)
 egcd x y = (signum x * s, signum y * t)
   where
-    (s, t) = egcd' (abs x) (abs y)
-    egcd' 0 b = (0, signum b)
+    (s, t)    = egcd' (abs x) (abs y)
+    egcd' 0 _ = (0, 1)                 -- Always one at base case
     egcd' a b 
-      | b < a = (fs,ft)
-      | otherwise = (((ss-tt)* d + ss),(tt-ss))
+      | b < a     = (fs, ft)
+      | otherwise = (((ss - tt) * q + ss), (tt - ss))
       where
-        (d,c) = b `quotRem` a
-        (ss,tt) = egcd' (a - c) c
-        (ft,fs) = egcd' b a
+        (q, r)   = b `quotRem` a        -- q: quotient, r: remainder
+        (ss, tt) = egcd' (a - r) r      -- Get intermediate result
+        (ft, fs) = egcd' b a            -- Flip output of s and t
