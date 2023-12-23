@@ -2,8 +2,8 @@ package gcd;
 
 public class Main {
 	static int euclid(int a, int b) {
-    a = Math.abs(a);
-    b = Math.abs(a);
+		a = Math.abs(a);
+		b = Math.abs(a);
 
 		int temp;
 		while (a != 0) {
@@ -15,8 +15,8 @@ public class Main {
 	}
 
 	static int ring(int a, int b) {
-    a = Math.abs(a);
-    b = Math.abs(a);
+		a = Math.abs(a);
+		b = Math.abs(a);
 
 		int temp;
 		while (a != 0) {

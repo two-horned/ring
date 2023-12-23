@@ -63,6 +63,45 @@ that our step case is decreasing much faster),
 and the worst case is approaching `5 * log_10 a` (proof can be found online),
 which is far worse, even if it is asymptotically equal.
 
+### Pseudocode
+#### Recursive
+```java
+gcd(a, b) {
+  a = |a|
+  b = |b|
+  
+  if (b < a) 
+    return gcd(b, a)
+  
+  if (a == 0)
+    return b
+  
+  r = b rem a  (remainder of b / a)
+  
+  return gcd(a - r, r)
+}
+```
+
+#### Iterative
+```java
+gcd(a, b) { 
+  a = |a|
+  b = |b|
+
+  while (a != 0) {
+    if (b < a) {
+      temp = a
+      a = b
+      b = temp
+    } else {
+      b = b rem a
+      a = a - b
+    }
+  }
+  
+  return b
+}
+```
 
 ## Extended GCD
 With our new approach to find the gcd, we can try to
@@ -74,14 +113,14 @@ For this we have following cases for a and b:
 - We find s and t by applying the recursion, which will find s and t
   of one gcd step further, which we can use to deduce our next s and t:
   ```
-  c := b mod a
-  d := b div a
+  r := b rem a  (remainder)
+  q := b quot a (quotient)
 
-  gcd(a,b) = gcd(a - c, c) 
-           = s * (a - c) + t * c
-           = s * (a - (b - d*a)) + t * (b - d*a)
-           = s * ((d+1) * a - b) + t * (b - d*a)
-           = ((s - t) * d + s) a + (t - s) * b
+  gcd(a,b) = gcd(a - r, r) 
+           = s * (a - r) + t * r
+           = s * (a - (b - q*a)) + t * (b - q*a)
+           = s * ((q+1) * a - b) + t * (b - q*a)
+           = ((s - t) * q + s) a + (t - s) * b
                       ^               ^
   "our next s" -------'               '
                                       ' 
@@ -94,3 +133,26 @@ For this we have following cases for a and b:
 Because of the same reason, why our algorithm for the gcd is better than the euclidean,
 we know this algorithm will perform better than using substution techniques
 using the euclidean algorithm.
+
+### Pseudocode
+#### Recursive
+```java
+egcd(a, b) {
+  a = |a|
+  b = |b|
+  
+  if (b < a) {
+    (t, s) = egcd(b, a)
+    return (s, t)
+  }
+  
+  if (a == 0)
+    return (0, 1)
+  
+  r = b rem a  (remainder of b / a)
+  q = b quot a (quotient of b / a)
+  
+  (ss, tt) = egcd(a - r, r) (intermediate result)
+  return ((ss - tt) * q + ss, tt - ss)
+}
+```
