@@ -22,8 +22,6 @@ main :: IO ()
 main = defaultMain [
   bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ whnf ringcd (a, b)
                , bench "Euclid, gcd(a,b)"   $ whnf eucgcd (a, b)
-               , bench "Ring, gcd(b,a)"     $ whnf ringcd (b, a)
-               , bench "Euclid, gcd(b,a)"   $ whnf eucgcd (b, a)
                ]
   ]
   where
