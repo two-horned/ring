@@ -23,7 +23,7 @@ main = defaultMain [
                ]
   ]
   where
-    a = fib 1009000
-    b = fib 1009001
+    a = fib 109000
+    b = fib 109001
     ringcd (x, y) = Ring.gcd x y
     eucgcd (x, y) = euclid x y

@@ -14,9 +14,9 @@ gcd x y = gcd' (abs x) (abs y)
     gcd' 0 b = b
     gcd' a b 
       | b < a     = gcd' b a
-      | otherwise = gcd' (a - r) r
-      where 
-        r = b `rem` a                  -- r: remainder
+      | otherwise = 
+        let r = b `rem` a               -- r: remainder
+        in gcd' (a - r) r
 
 -- | @'lcm' @a @b returns the least
 --   common multiple of two numbers.
@@ -39,9 +39,8 @@ egcd x y = (signum x * s, signum y * t)
     (s, t)    = egcd' (abs x) (abs y)
     egcd' 0 _ = (0, 1)                  -- Always one at base case
     egcd' a b 
-      | b < a     = (fs, ft)
-      | otherwise = (((ss - tt) * q + ss), (tt - ss))
-      where
-        (q, r)   = b `quotRem` a        -- q: quotient, r: remainder
-        (ss, tt) = egcd' (a - r) r      -- Get intermediate result
-        (ft, fs) = egcd' b a            -- Flip output of s and t
+      | b < a     = (\(v, u) -> (u, v)) (egcd' b a) -- Flip output
+      | otherwise = 
+      let (q, r)   = b `quotRem` a      -- q: quotient, r: remainder
+          (ss, tt) = egcd' (a - r) r    -- Get intermediate result
+      in (((ss - tt) * q + ss), (tt - ss))
