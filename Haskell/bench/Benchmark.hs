@@ -21,16 +21,13 @@ euclid x y = euclid' (abs x) (abs y)
 main :: IO ()
 main = defaultMain [
   bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ whnf ringcd (a, b)
-            -- , bench "Prelude, gcd(a,b)"  $ whnf pregcd (a, b)
                , bench "Euclid, gcd(a,b)"   $ whnf eucgcd (a, b)
                , bench "Ring, gcd(b,a)"     $ whnf ringcd (b, a)
-            -- , bench "Prelude, gcd(b,a)"  $ whnf pregcd (b, a)
                , bench "Euclid, gcd(b,a)"   $ whnf eucgcd (b, a)
                ]
   ]
   where
     a = fib 1009000
     b = fib 1009001
- -- pregcd (x, y) = Prelude.gcd x y
     ringcd (x, y) = Ring.gcd x y
     eucgcd (x, y) = euclid x y
