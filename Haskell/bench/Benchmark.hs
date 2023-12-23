@@ -1,5 +1,3 @@
-{-# LANGUAGE BangPatterns #-}
-
 import Criterion.Main
 import qualified Ring (gcd)
 
