@@ -19,10 +19,28 @@ because the Java VM runs warm when performing tasks on the first
 algorithm and therefore the second has some advantage.
 
 ## Results
+Notice, how we can't really use bigger numbers than I used for testing,
+because of buffer overlows and BigInteger type in Java is a bit 
+tedious to work with. Still a comparison is still well performable
+if we do enough iterations.
+
+### GCD
+- a = fib(44)
+- b = fib(45)
+- iterations = 10 Mio.
 
 Method | Euclidean | "Ring"
 --- | --- | ---
-Avg. Time | 8.66s | 4.3s
+Avg. Time | 8.66s | 4.38s
+
+### EGCD
+Method | Euclidean | "Ring"
+--- | --- | ---
+Avg. Time | 5.94s | 2.87s
+
+- a = fib(23)
+- b = fib(24)
+- iterations = 10 Mio.
 
 ### Hardware used
 - Cpu: AMD Ryzen 6800HS (5GHz),
