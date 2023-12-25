@@ -22,9 +22,9 @@ main :: IO ()
 main = let 
   !a = fib 109000
   !b = fib 109001
-  in defaultMain [ bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ whnf (Ring.gcd a) b
-                 , bench "Euclid, gcd(a,b)"   $ whnf (euclid a) b
-                 , bench "Ring, (head)egcd(a,b)"   $ whnf (Ring.egcd a) b
-                 , bench "Ring, (tail)egcd(a,b)"   $ whnf (Ring.egcd a) b
+  in defaultMain [ bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ nf (Ring.gcd a) b
+                 , bench "Euclid, gcd(a,b)"   $ nf (euclid a) b
+                 , bench "Ring, (head)egcd(a,b)"   $ nf (Ring.egcd a) b
+                 , bench "Ring, (tail)egcd(a,b)"   $ nf (Ring.tailegcd a) b
                  ]
   ]
