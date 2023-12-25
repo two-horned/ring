@@ -35,3 +35,21 @@ egcd x y = (signum x * s, signum y * t)
       let (q, r)   = b `quotRem` a      -- q: quotient, r: remainder
           (ss, tt) = egcd' (a - r) r    -- Get intermediate result
       in (((ss - tt) * q + ss), (tt - ss))
+
+-- | @'tailegcd' @a @b returns a valid s and t that solve
+--   gcd(a,b) = sa + tb. Meaning it's the extended gcd (uses tail-recursion).
+tailegcd :: (Show a, Integral a) => a -> a -> (a,a)
+tailegcd x 0 = (signum x, 0)          -- Filter edge cases, to avoid dividing with zero
+tailegcd 0 y = (0, signum y)          -- Filter edge cases, to avoid dividing with zero
+tailegcd x y = ((g - tt*yy) `quot` x, signum y * tt)
+  where
+    yy = abs y
+    (tt, g) = go (abs x) yy 0 1        -- tt: our tempT, g: our gcd
+
+    go 0 b _ v = (v, b)                -- v: tempT, b: gcd
+    go a b u v
+      | b < a = go b a v u             -- Flip input
+      | otherwise = 
+      let (q, r) = b `quotRem` a       -- q: quotient, r: remainder
+          uu = u * q
+      in (go (a - r) r (uu + u - v) (v - uu))
