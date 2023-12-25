@@ -29,7 +29,7 @@ eeuclid x y = (signum x * s, signum y * t)
           (q, r) = b `quotRem` a
       in (tt - q*ss, ss)
 
--- Head recursive extended euclidean algorithm.
+-- Tail recursive extended euclidean algorithm.
 taileeuclid :: Integral a => a -> a -> (a, a)
 taileeuclid x 0 = (signum x, 0)
 taileeuclid x y = (signum x * ss, (g - xx * ss) `quot` y)
