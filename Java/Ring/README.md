@@ -36,7 +36,7 @@ Avg. Time | 8.66s | 4.38s
 ### EGCD
 Method | Euclidean | "Ring"
 --- | --- | ---
-Avg. Time | 5.94s | 2.87s
+Avg. Time | 4.86s | 3.63s
 
 - a = fib(23)
 - b = fib(24)

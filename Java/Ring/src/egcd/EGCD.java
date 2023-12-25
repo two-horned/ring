@@ -3,7 +3,10 @@ package egcd;
 public class EGCD {
 	static Tuple<Integer> euclid(int a, int b) {
 		int signumA = pseudoSig(a);
-		int signumB = pseudoSig(b);
+		
+		if (b == 0) {
+			return new Tuple<Integer>(signumA,0);
+		}
 
 		int newR = Math.abs(a);
 		int oldR = Math.abs(b);
@@ -26,66 +29,53 @@ public class EGCD {
 			oldS = temp;
 		}
 
-		int s = signumA * oldS;
-		int t = b != 0 ? signumB * (oldR - s * a) / b : 0;
+		newS = signumA * oldS;            // use unused variable for s
+		oldS = (oldR - newS * a) / b;     // use unused variable for t
 
-		Tuple<Integer> result = new Tuple<>(s, t);
+		Tuple<Integer> result = new Tuple<>(newS, oldS);
 		return result;
 	}
 
 	static Tuple<Integer> ring(int a, int b) {
-		int signumA = pseudoSig(a);
 		int signumB = pseudoSig(b);
-
-		int invR = Math.abs(a);
-		int theR = Math.abs(b);
-
-		int newS = 1;
-		int oldS = 0;
-
-		int newT = 0;
-		int oldT = 1;
-
-		int quot;
+		
+		if (a == 0) {
+			return new Tuple<Integer>(0,signumB);
+		}
+		
+		
+		int tempA = Math.abs(a);
+		int tempB = Math.abs(b);
+		
 		int temp;
-
-		boolean flipped = false;
-		while (invR != 0) {
-			if (theR < invR) {
-				temp = theR;
-				theR = invR;
-				invR = temp;
-
-				flipped = !flipped;
+		int quot;
+		
+		int tempT1 = 0;
+		int tempT2 = 1;
+		while (tempA != 0) {
+			if (tempB < tempA) {
+				temp = tempA;
+				tempA = tempB;
+				tempB = temp;
+				
+				temp = tempT1;
+				tempT1 = tempT2;
+				tempT2 = temp;
 			} else {
-				quot = theR / invR;
-				theR = theR - quot * invR;
-				invR = invR - theR;
-
-				temp = newT;
-				if (flipped) {
-					newT = oldS - quot * oldT;
-					oldT = temp;
-
-					temp = newS;
-					newS = oldT - newT;
-					oldS = temp;
-				} else {
-					newT = oldT - quot * oldS;
-					oldT = temp;
-
-					temp = newS;
-					newS = oldS - newT;
-					oldS = temp;
-				}
+				quot = tempB / tempA;
+				tempB -= quot * tempA;
+				tempA -= tempB;
+				
+				temp = tempT1 * quot;
+				tempT1 += temp - tempT2;
+				tempT2 -= temp;
 			}
 		}
-
-		int s = signumA * oldS;
-		int t = signumB * oldT;
-
-		Tuple<Integer> result = new Tuple<>(s, t);
-
+		
+		tempT1 = (tempB - tempT2 * Math.abs(b)) / a; // use unused variable for s
+		tempT2 *= signumB;                   // use unused variable for t
+		
+		Tuple<Integer> result = new Tuple<>(tempT1, tempT2);
 		return result;
 	}
 

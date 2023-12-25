@@ -3,6 +3,9 @@ package egcd;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+
+import gcd.GCD;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -27,28 +30,27 @@ class EGCDTest {
 
 	@Order(2)
 	void ringFib1000() {
-		int a = fib(23);
-		int b = fib(24);
+		int a = fib(21);
+		int b = fib(22);
 
 		for (int i = 0; i < 100_000_000; i++) {
 			EGCD.ring(a, b);
 		}
-
 		EGCD.Tuple<Integer> result = EGCD.ring(a, b);
-		System.out.println(result.fst() + " and " + result.snd());
-		assertEquals(1, result.fst() * a, result.snd() * b);
+		assertEquals(GCD.ring(a,b), result.fst() * a + result.snd() * b);
+
 	}
 
 	@Test
 	@Order(1)
 	void euclidFib1000() {
-		int a = fib(23);
-		int b = fib(24);
+		int a = fib(21);
+		int b = fib(22);
 
 		for (int i = 0; i < 100_000_000; i++) {
 			EGCD.euclid(a, b);
 		}
 		EGCD.Tuple<Integer> result = EGCD.euclid(a, b);
-		assertEquals(1, result.fst() * a + result.snd() * b);
+		assertEquals(GCD.euclid(a, b), result.fst() * a + result.snd() * b);
 	}
 }

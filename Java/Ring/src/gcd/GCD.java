@@ -1,7 +1,7 @@
 package gcd;
 
 public class GCD {
-	static int euclid(int a, int b) {
+	public static int euclid(int a, int b) {
 		a = Math.abs(a);
 		b = Math.abs(b);
 
@@ -14,7 +14,7 @@ public class GCD {
 		return b;
 	}
 
-	static int ring(int a, int b) {
+	public static int ring(int a, int b) {
 		a = Math.abs(a);
 		b = Math.abs(b);
 
