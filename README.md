@@ -135,7 +135,12 @@ we know this algorithm will perform better than using substution techniques
 using the euclidean algorithm.
 
 ### Pseudocode
+
 #### Recursive
+
+It's very easy to find the (head-)recursive solution.
+We simply the subsitution rules from above.
+
 ```java
 egcd(a, b) {
   a = |a|
@@ -149,10 +154,64 @@ egcd(a, b) {
   if (a == 0)
     return (0, 1)
   
-  r = b rem a  (remainder of b / a)
-  q = b quot a (quotient of b / a)
+  r = b rem a                           // r: remainder of b / a
+  q = b quot a                          // q: quotient of b / a
   
-  (ss, tt) = egcd(a - r, r) (intermediate result)
+  (ss, tt) = egcd(a - r, r)             // intermediate result
   return ((ss - tt) * q + ss, tt - ss)
+}
+```
+
+### Iterative
+
+This solution requires you to wrap your head around
+and try to find the meaning of what it means if we
+hit the case of `a = 0`. You could reason similar to the
+extended euclidean algorithm, and you'll notice that
+the coefficient dedicated to `b` will always represent the `t`
+we are looking for. If you have further questions, you can
+contact me and we can discuss this in more detail.
+
+```java
+egcd(a, b) {
+  int signumB = signum b
+
+  if (a == 0)
+    return (0, signumB)
+    
+    
+  tempA = |a|
+  tempB = |b|
+    
+  int temp
+  int quot
+    
+  tempT1 = 0
+  tempT2 = 1
+
+  while (tempA != 0) {
+    if (tempB < tempA) {
+      temp = tempA
+      tempA = tempB
+      tempB = temp
+            
+      temp = tempT1
+      tempT1 = tempT2
+      tempT2 = temp
+    } else {
+      quot = tempB quot tempA
+      tempB -= quot * tempA
+      tempA -= tempB
+            
+      temp = tempT1 * quot
+      tempT1 += temp - tempT2
+      tempT2 -= temp
+    }
+  }
+    
+  tempT1 = (tempB - tempT2 * |b|) quot a   // use unused variable for s
+  tempT2 *= signumB                        // use unused variable for t
+    
+  return (tempT1, tempT2)
 }
 ```
