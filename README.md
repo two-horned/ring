@@ -174,17 +174,12 @@ contact me and we can discuss this in more detail.
 
 ```java
 egcd(a, b) {
-  int signumB = signum b
-
-  if (a == 0)
-    return (0, signumB)
+  if (a == 0)             // Edge case. We don't want
+    return (0, signumB)   // to divide with zero in the future.
     
     
   tempA = |a|
   tempB = |b|
-    
-  int temp
-  int quot
     
   tempT1 = 0
   tempT2 = 1
@@ -210,7 +205,7 @@ egcd(a, b) {
   }
     
   tempT1 = (tempB - tempT2 * |b|) quot a   // use unused variable for s
-  tempT2 *= signumB                        // use unused variable for t
+  tempT2 *= signum b                      // use unused variable for t
     
   return (tempT1, tempT2)
 }
