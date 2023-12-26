@@ -26,7 +26,7 @@ fn euclid_bench(c: &mut Criterion) {
     let x = fib(183);
     let y = fib(184);
 
-    c.bench_function("euclid (gcd), a = fib(183), b = fib(184)", |b| {
+    c.bench_function("just smaller than (2^127), euclid (gcd), a = fib(183), b = fib(184)", |b| {
         b.iter(|| {
             euclid(x, y);
         });
@@ -37,7 +37,7 @@ fn ring_bench(c: &mut Criterion) {
     let x = fib(183);
     let y = fib(184);
 
-    c.bench_function("ring (gcd), a = fib(183), b = fib(184)", |b| {
+    c.bench_function("just smaller than (2^127), ring (gcd), a = fib(183), b = fib(184)", |b| {
         b.iter(|| {
             gcd(x, y);
         });
@@ -45,10 +45,10 @@ fn ring_bench(c: &mut Criterion) {
 }
 
 fn euclid_bench2(c: &mut Criterion) {
-    let x = fib(33);
-    let y = fib(34);
+    let x = fib(91);
+    let y = fib(92);
 
-    c.bench_function("euclid (gcd), a = fib(33), b = fib(34)", |b| {
+    c.bench_function("just smaller than (2^63), euclid (gcd), a = fib(33), b = fib(34)", |b| {
         b.iter(|| {
             euclid(x, y);
         });
@@ -56,15 +56,38 @@ fn euclid_bench2(c: &mut Criterion) {
 }
 
 fn ring_bench2(c: &mut Criterion) {
-    let x = fib(33);
-    let y = fib(34);
+    let x = fib(91);
+    let y = fib(92);
 
-    c.bench_function("ring (gcd), a = fib(33), b = fib(34)", |b| {
+    c.bench_function("just smaller than (2^63), ring (gcd), a = fib(33), b = fib(34)", |b| {
         b.iter(|| {
             gcd(x, y);
         });
     });
 }
 
-criterion_group!(benches, euclid_bench, ring_bench, euclid_bench2, ring_bench2);
+
+fn euclid_bench3(c: &mut Criterion) {
+    let x = fib(33);
+    let y = fib(34);
+
+    c.bench_function("just smaller than (2^31), euclid (gcd), a = fib(33), b = fib(34)", |b| {
+        b.iter(|| {
+            euclid(x, y);
+        });
+    });
+}
+
+fn ring_bench3(c: &mut Criterion) {
+    let x = fib(33);
+    let y = fib(34);
+
+    c.bench_function("just smaller than (2^31), ring (gcd), a = fib(33), b = fib(34)", |b| {
+        b.iter(|| {
+            gcd(x, y);
+        });
+    });
+}
+
+criterion_group!(benches, euclid_bench, ring_bench, euclid_bench2, ring_bench2, euclid_bench3, ring_bench3);
 criterion_main!(benches);
