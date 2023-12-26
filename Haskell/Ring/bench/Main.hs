@@ -39,5 +39,6 @@ main = let
                  , bench "Euclid, gcd(a,b)"   $ nf (euclid a) b
                  , bench "Ring, egcd(a,b)"   $ nf (Ring.egcd a) b
                  , bench "Euclid, egcd(a,b)"   $ nf (eeuclid a) b
+                 , bench "Ring, egcdST(a,b)"   $ nf (Ring.egcdST a) b
                  ]
   ]
