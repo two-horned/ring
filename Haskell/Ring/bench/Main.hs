@@ -11,6 +11,7 @@ fib n
     go 0 _ b = b
     go m a b = go (m-1) b (a+b)
 
+{-# INLINE euclid #-}
 -- Well known euclidean algorithm.
 euclid :: Integral a => a -> a -> a
 euclid x y = euclid' (abs x) (abs y)
@@ -18,6 +19,7 @@ euclid x y = euclid' (abs x) (abs y)
     euclid' 0 b = b
     euclid' !a !b = euclid' (b `rem` a) a
 
+{-# INLINE eeuclid #-}
 -- Tail recursive extended euclidean algorithm.
 eeuclid :: Integral a => a -> a -> (a, a)
 eeuclid x 0 = (signum x, 0)
@@ -33,8 +35,8 @@ eeuclid x y = (signum x * ss, (g - xx * ss) `quot` y)
 -- Our benchmark harness.
 main :: IO ()
 main = let 
-  !a = fib 21 :: Int
-  !b = fib 22 :: Int
+  !a = fib 22 :: Int
+  !b = fib 23 :: Int
   in defaultMain [ bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ nf (Ring.gcd a) b
                  , bench "Euclid, gcd(a,b)"   $ nf (euclid a) b
                  , bench "Ring, egcd(a,b)"   $ nf (Ring.egcd a) b

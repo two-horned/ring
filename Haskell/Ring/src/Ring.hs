@@ -1,9 +1,12 @@
 {-# LANGUAGE BangPatterns #-}
+
 module Ring where
 
 import Data.STRef.Strict
 import Control.Monad.ST.Strict
 import Prelude hiding (gcd, lcm)
+
+{-# INLINE gcd #-}
 
 -- | @'gcd' @a @b returns the greatest 
 --   common divisor of two numbers.
@@ -25,6 +28,8 @@ lcm 0 b = abs b
 lcm a b = (a `quot` gcd a b) * b
 
 
+{-# INLINE egcd #-}
+
 -- | @'egcd' @a @b returns a valid s and t that solve
 --   gcd(a,b) = sa + tb. Meaning it's the extended gcd.
 egcd :: Integral a => a -> a -> (a, a)
@@ -42,6 +47,7 @@ egcd x y = ((g - tt*yy) `quot` x, signum y * tt)
           !uu = u * q
       in go (a - r) r (uu + u - v) (v - uu)
 
+{-# INLINE egcdST #-}
 
 egcdST :: Integral a => a -> a -> (a, a)
 egcdST 0 y = (0, signum y)

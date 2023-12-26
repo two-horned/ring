@@ -35,36 +35,3 @@ main = do
   where 
     a = fib 100 
     b = fib 101
-
-
--- | @'egcd' @a @b returns a valid s and t that solve
---   gcd(a,b) = sa + tb. Meaning it's the extended gcd.
---egcd :: (Show a, Integral a, Num a) => a -> a -> (a, a)
---egcd 0 y = (0, signum y)          -- Filter edge case, to avoid dividing with zero
---egcd x y = runST $ do 
---x' <- newSTRef (abs x)
---y' <- newSTRef (abs y)
---s' <- newSTRef (x)
---t' <- newSTRef (y)
-
---return (go x' y' s' t')
---where
---  go a b u v = do { a' <- readSTRef a
---                  ; b' <- readSTRef b
---                  ; u' <- readSTRef u
---                  ; v' <- readSTRef v
---                  ; (v', b')
---  }
---    --; if b' < a' then go b a v u
---    --else
---      --case (a', b', u', v') of
---        --(0, gg, _, tt) -> (tt, gg)
---        --_ -> 
---          --let (q, r) = b' `quotRem` a'
---              --uu = u' * q
---          --in 
---            --writeSTRef a (a' - r)
---            --writeSTRef b r
---            --modifySTRef u (\l -> l + (uu - v'))
---            --modifySTRef v (\l -> l - uu)
---            --go a b u v
