@@ -37,10 +37,10 @@ main :: IO ()
 main = let 
   !a = fib 22 :: Int
   !b = fib 23 :: Int
-  in defaultMain [ bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ nf (Ring.gcd a) b
-                 , bench "Euclid, gcd(a,b)"   $ nf (euclid a) b
-                 , bench "Ring, egcd(a,b)"   $ nf (Ring.egcd a) b
-                 , bench "Euclid, egcd(a,b)"   $ nf (eeuclid a) b
-                 , bench "Ring, egcdST(a,b)"   $ nf (Ring.egcdST a) b
-                 ]
+  in defaultMain [ bgroup "gcd" 
+                   [ bench "Ring"     $ nf (Ring.gcd a) b
+                   , bench "Euclid"   $ nf (euclid a) b ]
+                 , bgroup "egcd"
+                   [ bench "Ring"     $ nf (Ring.egcd a) b
+                   , bench "Euclid"   $ nf (eeuclid a) b ]
   ]
