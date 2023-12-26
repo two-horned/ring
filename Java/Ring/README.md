@@ -38,8 +38,8 @@ Method | Euclidean | "Ring"
 --- | --- | ---
 Avg. Time | 4.86s | 3.63s
 
-- a = fib(23)
-- b = fib(24)
+- a = fib(21)
+- b = fib(22)
 - iterations = 10 Mio.
 
 ### Hardware used
