@@ -46,8 +46,8 @@ tailegcd x y = ((g - tt*yy) `quot` x, signum y * tt)
     yy = abs y
     (tt, g) = go (abs x) yy 0 1        -- tt: our tempT, g: our gcd
 
-    go !0 !b !_ !v = (v, b)                -- v: tempT, b: gcd
-    go a b u v
+    go 0 b _ v = (v, b)                -- v: tempT, b: gcd
+    go !a !b !u !v
       | b < a = go b a v u             -- Flip input
       | otherwise = 
       let (q, r) = b `quotRem` a       -- q: quotient, r: remainder
