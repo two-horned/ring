@@ -3,7 +3,7 @@
 import Criterion.Main
 import qualified Ring
 
-fib :: Integer -> Integer
+fib :: Integral a => a -> a
 fib n 
   | n < 0 = 0
   | otherwise = go n 0 1
@@ -23,7 +23,7 @@ eeuclid :: Integral a => a -> a -> (a, a)
 eeuclid x y = (signum x * s, signum y * t)
   where 
     (s, t) = eeuclid' (abs x) (abs y)
-    eeuclid' 0 b = (0, signum b)
+    eeuclid' 0 _ = (0, 1)              -- Always one at base case.
     eeuclid' a b = 
       let (ss, tt) = eeuclid' r a
           (q, r) = b `quotRem` a
@@ -44,8 +44,8 @@ taileeuclid x y = (signum x * ss, (g - xx * ss) `quot` y)
 -- Our benchmark harness.
 main :: IO ()
 main = let 
-  !a = fib 109000
-  !b = fib 109001
+  !a = fib 123455 :: Integer
+  !b = fib 123456 :: Integer
   in defaultMain [ bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ nf (Ring.gcd a) b
                  , bench "Euclid, gcd(a,b)"   $ nf (euclid a) b
                  , bench "Ring, (head)egcd(a,b)"   $ nf (Ring.egcd a) b

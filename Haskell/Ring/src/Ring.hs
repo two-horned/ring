@@ -39,8 +39,7 @@ egcd x y = (signum x * s, signum y * t)
 -- | @'tailegcd' @a @b returns a valid s and t that solve
 --   gcd(a,b) = sa + tb. Meaning it's the extended gcd (uses tail-recursion).
 tailegcd :: (Show a, Integral a) => a -> a -> (a,a)
-tailegcd x 0 = (signum x, 0)          -- Filter edge cases, to avoid dividing with zero
-tailegcd 0 y = (0, signum y)          -- Filter edge cases, to avoid dividing with zero
+tailegcd 0 y = (0, signum y)          -- Filter edge case, to avoid dividing with zero
 tailegcd x y = ((g - tt*yy) `quot` x, signum y * tt)
   where
     yy = abs y
