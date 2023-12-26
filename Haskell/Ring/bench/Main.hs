@@ -33,8 +33,8 @@ eeuclid x y = (signum x * ss, (g - xx * ss) `quot` y)
 -- Our benchmark harness.
 main :: IO ()
 main = let 
-  !a = fib 123455 :: Integer
-  !b = fib 123456 :: Integer
+  !a = fib 21 :: Int
+  !b = fib 22 :: Int
   in defaultMain [ bgroup "gcd" [ bench "Ring, gcd(a,b)"     $ nf (Ring.gcd a) b
                  , bench "Euclid, gcd(a,b)"   $ nf (euclid a) b
                  , bench "Ring, egcd(a,b)"   $ nf (Ring.egcd a) b
