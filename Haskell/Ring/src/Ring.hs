@@ -74,12 +74,12 @@ egcdST x y = runST $ do
           go a b u v
         else do
           let q = b' `quot` a'
-          modifySTRef b (subtract (q * a'))
+          modifySTRef' b (subtract (q * a'))
           b' <- readSTRef b
-          modifySTRef a (subtract b')
+          modifySTRef' a (subtract b')
 
           let t = (q * u')
 
-          modifySTRef u (+ (t - v'))
-          modifySTRef v (subtract t)
+          modifySTRef' u (+ (t - v'))
+          modifySTRef' v (subtract t)
           go a b u v
