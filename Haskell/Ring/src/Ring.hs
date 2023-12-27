@@ -32,7 +32,7 @@ lcm a b = (a `quot` gcd a b) * b
 --   gcd(a,b) = sa + tb. Meaning it's the extended gcd.
 egcd :: Integral a => a -> a -> (a, a)
 egcd 0 !y = (0, signum y)          -- Filter edge case, to avoid dividing with zero
-egcd !x y = ((g - tt*yy) `quot` x, signum y * tt)
+egcd x y = ((g - tt*yy) `quot` x, signum y * tt)
   where
     !yy = abs y
     (!tt, !g) = go (abs x) yy 0 1        -- tt: our tempT, g: our gcd
