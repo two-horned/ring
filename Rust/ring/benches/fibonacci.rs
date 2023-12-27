@@ -1,22 +1,22 @@
-use ring::gcd;
+use ring::{gcd, egcd};
 use ring::euclid;
 
 use criterion::BenchmarkId;
 use criterion::{criterion_main, criterion_group, Criterion};
 
-const FIRST: i128 = fib(21);
-const SECOND: i128 = fib(57);
-const THIRD: i128 = fib(91);
+const FIRST: i64 = fib(21);
+const SECOND: i64 = fib(57);
+const THIRD: i64 = fib(91);
 
-fn testlist() -> [i128; 183] {
-    let mut r = [0; 183]; 
-    for i in 0 .. 182 {
-        r[i] = fib(i as i128 +1);
+fn testlist() -> [i64; 91] {
+    let mut r = [0; 91];
+    for i in 0 .. 90 {
+        r[i] = fib(i as i64 +1);
     }
     return r;
 }
 
-const fn fib(n: i128) -> i128 {
+const fn fib(n: i64) -> i64 {
     if n < 0 { return 0; }
 
     let mut n = n;
@@ -34,8 +34,8 @@ fn ring_gcd_first(c: &mut Criterion) {
     let mut group = c.benchmark_group("gcd/Ring/a=fib(21)");
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
-            b.iter(|| { 
-                gcd(FIRST, i); 
+            b.iter(|| {
+                gcd(FIRST, i);
             });
         });
     }
@@ -47,8 +47,8 @@ fn ring_gcd_second(c: &mut Criterion) {
     let mut group = c.benchmark_group("gcd/Ring/a=fib(57)");
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
-            b.iter(|| { 
-                gcd(SECOND, i); 
+            b.iter(|| {
+                gcd(SECOND, i);
             });
         });
     }
@@ -60,8 +60,8 @@ fn ring_gcd_third(c: &mut Criterion) {
     let mut group = c.benchmark_group("gcd/Ring/a=fib(91)");
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
-            b.iter(|| { 
-                gcd(THIRD, i); 
+            b.iter(|| {
+                gcd(THIRD, i);
             });
         });
     }
@@ -74,8 +74,8 @@ fn euclid_gcd_first(c: &mut Criterion) {
     let mut group = c.benchmark_group("gcd/Euclidean/a=fib(21)");
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
-            b.iter(|| { 
-                euclid::gcd(FIRST, i); 
+            b.iter(|| {
+                euclid::gcd(FIRST, i);
             });
         });
     }
@@ -87,8 +87,8 @@ fn euclid_gcd_second(c: &mut Criterion) {
     let mut group = c.benchmark_group("gcd/Euclidean/a=fib(57)");
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
-            b.iter(|| { 
-                euclid::gcd(SECOND, i); 
+            b.iter(|| {
+                euclid::gcd(SECOND, i);
             });
         });
     }
@@ -100,13 +100,107 @@ fn euclid_gcd_third(c: &mut Criterion) {
     let mut group = c.benchmark_group("gcd/Euclidean/a=fib(91)");
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
-            b.iter(|| { 
-                euclid::gcd(THIRD, i); 
+            b.iter(|| {
+                euclid::gcd(THIRD, i);
             });
         });
     }
     group.finish();
 }
 
-criterion_group!(benches, ring_gcd_first, ring_gcd_second, ring_gcd_third, euclid_gcd_first, euclid_gcd_second, euclid_gcd_third);
+fn ring_egcd_first(c: &mut Criterion) {
+    let testlist = testlist();
+
+    let mut group = c.benchmark_group("gcd/Ring/a=fib(21)");
+    for i in testlist.iter() {
+        group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
+            b.iter(|| {
+                egcd(FIRST, i);
+            });
+        });
+    }
+    group.finish();
+}
+
+fn ring_egcd_second(c: &mut Criterion) {
+    let testlist = testlist();
+    let mut group = c.benchmark_group("gcd/Ring/a=fib(57)");
+    for i in testlist.iter() {
+        group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
+            b.iter(|| {
+                egcd(SECOND, i);
+            });
+        });
+    }
+    group.finish();
+}
+
+fn ring_egcd_third(c: &mut Criterion) {
+    let testlist = testlist();
+    let mut group = c.benchmark_group("gcd/Ring/a=fib(91)");
+    for i in testlist.iter() {
+        group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
+            b.iter(|| {
+                egcd(THIRD, i);
+            });
+        });
+    }
+    group.finish();
+}
+
+fn euclid_egcd_first(c: &mut Criterion) {
+    let testlist = testlist();
+
+    let mut group = c.benchmark_group("gcd/Euclidean/a=fib(21)");
+    for i in testlist.iter() {
+        group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
+            b.iter(|| {
+                euclid::egcd(FIRST, i);
+            });
+        });
+    }
+    group.finish();
+}
+
+fn euclid_egcd_second(c: &mut Criterion) {
+    let testlist = testlist();
+    let mut group = c.benchmark_group("gcd/Euclidean/a=fib(57)");
+    for i in testlist.iter() {
+        group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
+            b.iter(|| {
+                euclid::egcd(SECOND, i);
+            });
+        });
+    }
+    group.finish();
+}
+
+fn euclid_egcd_third(c: &mut Criterion) {
+    let testlist = testlist();
+    let mut group = c.benchmark_group("gcd/Euclidean/a=fib(91)");
+    for i in testlist.iter() {
+        group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
+            b.iter(|| {
+                euclid::egcd(THIRD, i);
+            });
+        });
+    }
+    group.finish();
+}
+
+criterion_group!(
+    benches,
+    ring_gcd_first,
+    ring_gcd_second,
+    ring_gcd_third,
+    euclid_gcd_first,
+    euclid_gcd_second,
+    euclid_gcd_third,
+    ring_egcd_first,
+    ring_egcd_second,
+    ring_egcd_third,
+    euclid_egcd_first,
+    euclid_egcd_second,
+    euclid_egcd_third,
+    );
 criterion_main!(benches);
