@@ -5,7 +5,7 @@ to calculate the gcd of two numbers.
 ## Greatest Common Divisor
 To calculate the gcd efficiently,
 we should not use the euclidean algorithm.
-We will see below why the peformance is way
+We will see below why the (worst case) peformance is way
 worse than what we show here.
 
 To calculate the gcd we look
