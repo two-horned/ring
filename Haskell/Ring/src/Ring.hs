@@ -2,8 +2,6 @@
 
 module Ring where
 
-import Data.STRef.Strict
-import Control.Monad.ST.Strict
 import Prelude hiding (gcd, lcm)
 
 {-# INLINE gcd #-}
