@@ -1,1 +1,1 @@
-- Find out why Haskell implementation of the egcd works much slower than expected
+- Finish Rust implementation and create benchmarks

@@ -8,6 +8,13 @@ edition = "2021"
 [dependencies]
 criterion = "0.5.1"
 
+[lib]
+bench = false
+
 [[bench]]
-name = "main"
+name = "fibonacci"
+harness = false
+
+[[bench]]
+name = "small"
 harness = false
