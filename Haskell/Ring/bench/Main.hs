@@ -3,6 +3,9 @@
 import Criterion.Main
 import qualified Ring
 
+maxTest :: Int
+maxTest = 91
+
 fib :: Integral a => a -> a
 fib n 
   | n < 0 = 0
@@ -35,12 +38,24 @@ eeuclid x y = (signum x * ss, (g - xx * ss) `quot` y)
 -- Our benchmark harness.
 main :: IO ()
 main = let 
-  !a = fib 22 :: Int
-  !b = fib 23 :: Int
-  in defaultMain [ bgroup "gcd" 
-                   [ bench "Ring"     $ nf (Ring.gcd a) b
-                   , bench "Euclid"   $ nf (euclid a) b ]
-                 , bgroup "egcd"
-                   [ bench "Ring"     $ nf (Ring.egcd a) b
-                   , bench "Euclid"   $ nf (eeuclid a) b ]
-  ]
+  !first = fib 21 :: Int
+  !second = fib 57 :: Int
+  !third = fib 91 :: Int 
+  !testList = [ fib x| x <- [0..maxTest] ]
+
+  in defaultMain [ bgroup "gcd/Ring/a=fib(21)" [ bench (unwords ["b =", show b]) $ nf (Ring.gcd first) b | b <- testList ]
+                 , bgroup "gcd/Ring/a=fib(57)" [ bench (unwords ["b =", show b]) $ nf (Ring.gcd second) b | b <- testList]
+                 , bgroup "gcd/Ring/a=fib(91)" [ bench (unwords ["b =", show b]) $ nf (Ring.gcd third) b | b <- testList]
+                 -- Euclidean now.
+                 , bgroup "gcd/Euclidean/a=fib(21)" [ bench (unwords ["b =", show b]) $ nf (euclid first) b | b <- testList]
+                 , bgroup "gcd/Euclidean/a=fib(57)" [ bench (unwords ["b =", show b]) $ nf (euclid second) b | b <- testList]
+                 , bgroup "gcd/Euclidean/a=fib(91)" [ bench (unwords ["b =", show b]) $ nf (euclid third) b | b <- testList]
+                 -- Extended now.
+                 , bgroup "egcd/Ring/a=fib(21)" [ bench (unwords ["b =", show b]) $ nf (Ring.egcd first) b | b <- testList]
+                 , bgroup "egcd/Ring/a=fib(57)" [ bench (unwords ["b =", show b]) $ nf (Ring.egcd second) b | b <- testList]
+                 , bgroup "egcd/Ring/a=fib(91)" [ bench (unwords ["b =", show b]) $ nf (Ring.egcd third) b | b <- testList]
+                 -- Extended Euclidean now.
+                 , bgroup "egcd/Euclidean/a=fib(21)" [ bench (unwords ["b =", show b]) $ nf (eeuclid first) b | b <- testList]
+                 , bgroup "egcd/Euclidean/a=fib(57)" [ bench (unwords ["b =", show b]) $ nf (eeuclid second) b | b <- testList]
+                 , bgroup "egcd/Euclidean/a=fib(91)" [ bench (unwords ["b =", show b]) $ nf (eeuclid third) b | b <- testList]
+                 ]
