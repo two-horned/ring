@@ -100,8 +100,24 @@ executable Ring
     -- Base language which the package is written in.
     default-language: Haskell2010
 
-benchmark Benchmark
-  main-is: Main.hs
+benchmark Fibonacci
+  main-is: Fibonacci.hs
+
+  ghc-options: -Wall -rtsopts
+
+  build-depends:
+    base ^>=4.19.0.0,
+    criterion,
+    Ring
+
+  hs-source-dirs:   bench
+
+  default-language: Haskell2010
+
+  type:             exitcode-stdio-1.0
+
+benchmark Leonardo
+  main-is: Leonardo.hs
 
   ghc-options: -Wall -rtsopts
 
