@@ -27,13 +27,12 @@ pub fn egcd(a: i64, b: i64) -> (i64, i64) {
     let mut temp;
 
     while x != 0 {
-        if b < a {
+        if y < x {
             (x,y) = (y,x);
             (s,t) = (t,s);
         } else {
             temp = y / x;
-
-            y %= x;
+            y -= temp * x;
             x -= y;
 
             temp *= s;
