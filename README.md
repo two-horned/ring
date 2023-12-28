@@ -76,7 +76,7 @@ gcd(a, b) {
   if (a == 0)
     return b
   
-  r = b rem a  (remainder of b / a)
+  r = b % a                // remainder of b / a
   
   return gcd(a - r, r)
 }
@@ -90,12 +90,10 @@ gcd(a, b) {
 
   while (a != 0) {
     if (b < a) {
-      temp = a
-      a = b
-      b = temp
+        (a, b) = (b, a)        // Usage of parallel assignment.
     } else {
-      b = b rem a
-      a = a - b
+      b %= a                   // Usage of selfassignment.
+      a -= b
     }
   }
   
@@ -154,10 +152,10 @@ egcd(a, b) {
   if (a == 0)
     return (0, 1)
   
-  r = b rem a                           // r: remainder of b / a
-  q = b quot a                          // q: quotient of b / a
+  q = b / a                           // q: quotient of b / a
+  r = b % a                           // r: remainder of b / a
   
-  (ss, tt) = egcd(a - r, r)             // intermediate result
+  (ss, tt) = egcd(a - r, r)           // intermediate result
   return ((ss - tt) * q + ss, tt - ss)
 }
 ```
@@ -174,39 +172,33 @@ contact me and we can discuss this in more detail.
 
 ```java
 egcd(a, b) {
-  if (a == 0)             // Edge case. We don't want
-    return (0, signumB)   // to divide with zero in the future.
-    
-    
-  tempA = |a|
-  tempB = |b|
-    
-  tempT1 = 0
-  tempT2 = 1
+  if (b == 0)                // Edge case. We don't want to
+    return (a.signum(), 0)   // divide with zero in the future.
 
-  while (tempA != 0) {
-    if (tempB < tempA) {
-      temp = tempA
-      tempA = tempB
-      tempB = temp
-            
-      temp = tempT1
-      tempT1 = tempT2
-      tempT2 = temp
+  x = |a|
+  y = |b|
+
+  s = 0
+  t = 1
+
+  while x != 0 {
+    if y < x {
+      (x,y) = (y,x)
+      (s,t) = (t,s)
     } else {
-      quot = tempB quot tempA
-      tempB -= quot * tempA
-      tempA -= tempB
-            
-      temp = tempT1 * quot
-      tempT1 += temp - tempT2
-      tempT2 -= temp
+      temp = y / x       // temp: quotient of y / x
+      y -= temp * x
+      x -= y
+
+      temp *= s         // temp: not the quotient anymore.
+      s += temp - t
+      t -= temp
     }
   }
-    
-  tempT1 = (tempB - tempT2 * |b|) quot a   // use unused variable for s
-  tempT2 *= signum b                      // use unused variable for t
-    
-  return (tempT1, tempT2)
+
+    t *= b.signum()
+    s = (y - t * b) / a
+
+    return (s, t)
 }
 ```
