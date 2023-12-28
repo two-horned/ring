@@ -19,7 +19,7 @@ pub fn egcd(a: i64, b: i64) -> (i64, i64) {
     let mut quot;
 
     while x != 0 {
-        quot = b / a;
+        quot = y / x;
         (x, y) = (y - quot * x, x);
         (s, t) = (t - quot * s, s);
     }
