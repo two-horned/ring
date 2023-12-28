@@ -173,7 +173,7 @@ contact me and we can discuss this in more detail.
 ```java
 egcd(a, b) {
   if (b == 0)                // Edge case. We don't want to
-    return (a.signum(), 0)   // divide with zero in the future.
+    return (signum(a), 0)   // divide with zero in the future.
 
   x = |a|
   y = |b|
@@ -196,9 +196,9 @@ egcd(a, b) {
     }
   }
 
-    t *= b.signum()
-    s = (y - t * b) / a
+  t *= signum(b)
+  s = (y - t * b) / a
 
-    return (s, t)
+  return (s, t)
 }
 ```
