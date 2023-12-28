@@ -20,7 +20,7 @@ pub fn egcd(a: i64, b: i64) -> (i64, i64) {
 
     while x != 0 {
         quot = b / a;
-        (x, y) = (b - quot * a, a);
+        (x, y) = (y - quot * x, x);
         (s, t) = (t - quot * s, s);
     }
 
