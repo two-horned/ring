@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use ring::{gcd, egcd};
 use ring::euclid;
 
@@ -8,10 +10,13 @@ const FIRST: i64 = fib(21);
 const SECOND: i64 = fib(57);
 const THIRD: i64 = fib(91);
 
+const WTIME: Duration = Duration::from_millis(500);
+const MTIME: Duration = Duration::from_secs(2);
+
 fn testlist() -> [i64; 91] {
     let mut r = [0; 91];
-    for i in 0 .. 90 {
-        r[i] = fib(i as i64 +1);
+    for i in 0 .. 91 {
+        r[i] = fib(i as i64 + 1);
     }
     return r;
 }
@@ -32,6 +37,9 @@ fn ring_gcd_first(c: &mut Criterion) {
     let testlist = testlist();
 
     let mut group = c.benchmark_group("gcd/Ring/a=fib(21)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -44,7 +52,11 @@ fn ring_gcd_first(c: &mut Criterion) {
 
 fn ring_gcd_second(c: &mut Criterion) {
     let testlist = testlist();
+
     let mut group = c.benchmark_group("gcd/Ring/a=fib(57)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -57,7 +69,11 @@ fn ring_gcd_second(c: &mut Criterion) {
 
 fn ring_gcd_third(c: &mut Criterion) {
     let testlist = testlist();
+
     let mut group = c.benchmark_group("gcd/Ring/a=fib(91)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -72,6 +88,9 @@ fn euclid_gcd_first(c: &mut Criterion) {
     let testlist = testlist();
 
     let mut group = c.benchmark_group("gcd/Euclidean/a=fib(21)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -84,7 +103,11 @@ fn euclid_gcd_first(c: &mut Criterion) {
 
 fn euclid_gcd_second(c: &mut Criterion) {
     let testlist = testlist();
+
     let mut group = c.benchmark_group("gcd/Euclidean/a=fib(57)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -97,7 +120,11 @@ fn euclid_gcd_second(c: &mut Criterion) {
 
 fn euclid_gcd_third(c: &mut Criterion) {
     let testlist = testlist();
+
     let mut group = c.benchmark_group("gcd/Euclidean/a=fib(91)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -111,7 +138,10 @@ fn euclid_gcd_third(c: &mut Criterion) {
 fn ring_egcd_first(c: &mut Criterion) {
     let testlist = testlist();
 
-    let mut group = c.benchmark_group("gcd/Ring/a=fib(21)");
+    let mut group = c.benchmark_group("egcd/Ring/a=fib(21)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -124,7 +154,11 @@ fn ring_egcd_first(c: &mut Criterion) {
 
 fn ring_egcd_second(c: &mut Criterion) {
     let testlist = testlist();
-    let mut group = c.benchmark_group("gcd/Ring/a=fib(57)");
+
+    let mut group = c.benchmark_group("egcd/Ring/a=fib(57)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -137,7 +171,11 @@ fn ring_egcd_second(c: &mut Criterion) {
 
 fn ring_egcd_third(c: &mut Criterion) {
     let testlist = testlist();
-    let mut group = c.benchmark_group("gcd/Ring/a=fib(91)");
+
+    let mut group = c.benchmark_group("egcd/Ring/a=fib(91)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -151,7 +189,10 @@ fn ring_egcd_third(c: &mut Criterion) {
 fn euclid_egcd_first(c: &mut Criterion) {
     let testlist = testlist();
 
-    let mut group = c.benchmark_group("gcd/Euclidean/a=fib(21)");
+    let mut group = c.benchmark_group("egcd/Euclidean/a=fib(21)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -164,7 +205,11 @@ fn euclid_egcd_first(c: &mut Criterion) {
 
 fn euclid_egcd_second(c: &mut Criterion) {
     let testlist = testlist();
-    let mut group = c.benchmark_group("gcd/Euclidean/a=fib(57)");
+
+    let mut group = c.benchmark_group("egcd/Euclidean/a=fib(57)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
@@ -177,7 +222,11 @@ fn euclid_egcd_second(c: &mut Criterion) {
 
 fn euclid_egcd_third(c: &mut Criterion) {
     let testlist = testlist();
-    let mut group = c.benchmark_group("gcd/Euclidean/a=fib(91)");
+
+    let mut group = c.benchmark_group("egcd/Euclidean/a=fib(91)");
+    group.warm_up_time(WTIME);
+    group.measurement_time(MTIME);
+
     for i in testlist.iter() {
         group.bench_with_input(BenchmarkId::from_parameter(i), i, |b, &i| {
             b.iter(|| {
