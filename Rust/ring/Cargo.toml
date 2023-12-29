@@ -16,5 +16,9 @@ name = "fibonacci"
 harness = false
 
 [[bench]]
+name = "leonardo"
+harness = false
+
+[[bench]]
 name = "small"
 harness = false
