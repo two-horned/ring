@@ -1,8 +1,8 @@
 {-# LANGUAGE BangPatterns #-}
 
 import Criterion.Main
-import Euclid (egcd)
 import qualified Ring
+import qualified Euclid
 
 leo :: Integral a => a -> a
 leo n

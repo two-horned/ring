@@ -2,18 +2,31 @@
 
 module Euclid where
 
+import Prelude hiding (gcd, lcm)
+
 {-# INLINE gcd #-}
 
--- Well known euclidean algorithm.
+-- | @'gcd' @a @b returns the greatest 
+--   common divisor of two numbers.
 gcd :: Integral a => a -> a -> a
 gcd x y = gcd' (abs x) (abs y)
   where
     gcd' 0 b = b
     gcd' !a !b = gcd' (b `rem` a) a
 
+{-# INLINE lcm #-}
+
+-- | @'lcm' @a @b returns the least
+--   common multiple of two numbers.
+lcm :: Integral a => a -> a -> a
+lcm a 0 = abs a
+lcm 0 b = abs b
+lcm a b = (a `quot` gcd a b) * b
+
 {-# INLINE egcd #-}
 
--- Tail recursive extended euclidean algorithm.
+-- | @'egcd' @a @b returns a valid s and t that solve
+--   gcd(a,b) = sa + tb. Meaning it's the extended gcd.
 egcd :: Integral a => a -> a -> (a, a)
 egcd x 0 = (signum x, 0)
 egcd !x !y = (signum x * ss, (g - xx * ss) `quot` y)
