@@ -25,6 +25,15 @@ but we never lack behind in any other case as well. Since the
 selfassignments used in this algorithm never slowed us down
 compared to the new constant generation in Haskell.
 
+#### Plotting the results
+##### Fibonacci
+
+|         | GCD | EGCD
+| ------- | --------- | ----
+| Fib(21) | ![gcd_fib(21)](https://github.com/two-horned/ring/assets/95277266/01804f3c-d131-44ad-abb8-01d9ad4b98ab) | ![egcd_fib(21)](https://github.com/two-horned/ring/assets/95277266/f2ec6e34-1c31-4515-a30a-855d58844216)
+| Fib(57) | ![gcd_fib(57)](https://github.com/two-horned/ring/assets/95277266/e76f88a3-cb3e-4d8d-9651-6cdb3e11c094) | ![egcd_fib(57)](https://github.com/two-horned/ring/assets/95277266/af0b9933-93f9-447a-abb1-0025577c71e8)
+| Fib(91) | ![gcd_fib(91)](https://github.com/two-horned/ring/assets/95277266/65d78401-804f-4fce-baf4-95267f7f1a40) | ![egcd_fib(91)](https://github.com/two-horned/ring/assets/95277266/aed2b767-54f7-436e-b32b-6badb6511a76)
+
 ### Hardware Used
 - AMD Ryzen 6800HS (5Ghz)
 - 16GiB DDR5 RAM (6400Mhz)
