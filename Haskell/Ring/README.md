@@ -13,8 +13,7 @@ because the Java VM runs warm when performing tasks on the first
 algorithm and therefore the second has some advantage.
 
 ## Results
-[Testing fibonacci numbers against eachother (34MiB HTML).
-Testing leonardo numbers against eachother (33MiB HTML).](https://github.com/two-horned/ring/issues/3)
+[Download the results here.](https://github.com/two-horned/ring/issues/3)
 
 ### GCD
 I have measured times exactly predicted by
@@ -30,7 +29,7 @@ We still have an edge over the Euclidean version
 when we are reaching "spikes", "high points" in the tests.
 The advantage isn't as significant anymore, only around 50% performance boost.
 
-The drawback is, that more general cases need around 10-20% more time.
+The drawback is, that more general cases need around 5-15% more time.
 
 Reason for this kind of resul is, that the algorithm at it's core is way
 more complex than the Euclidean version. So when the compiler was quick to
@@ -45,6 +44,9 @@ In theory, if we rerun the tests in an imperative Programming language,
 where we can make use of variables and selfassignments of variables (see imperative pseudocode),
 we would get even better results.
 
+PS: As it turns out, this is exactly true.
+Take a look at the [Rust implementation](https://github.com/two-horned/ring/tree/main/Rust/ring) and their benchmarking results!
+
 ### Hardware used
-- Cpu: AMD Ryzen 6800HS (5GHz),
+- CPU: AMD Ryzen 6800HS (5GHz),
 - RAM: 16GiB DDR5 (6400MHz)
