@@ -25,7 +25,7 @@ const fn leo(n: i64) -> i64 {
     if n < 0 { return 0; }
 
     let mut n = n;
-    let mut a = 0;
+    let mut a = -1;
     let mut b = 1;
 
     while 0 < n { (a, b) = (b, a + b + 1); n -= 1; }
