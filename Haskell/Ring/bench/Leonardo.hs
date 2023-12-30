@@ -25,29 +25,29 @@ main = let
 
   in defaultMain 
     [ bgroup "gcd"
-      [ bgroup (show first)
+      [ bgroup "leo(21)"
         [ bgroup "Ring" [ bench (unwords ["b =", show b]) $ nf (Ring.gcd first) b | b <- testList ]
         , bgroup "Euclidean" [ bench (unwords ["b =", show b]) $ nf (Euclid.gcd first) b | b <- testList]
         ]
-      , bgroup (show second)
+      , bgroup "leo(57)"
         [ bgroup "Ring" [ bench (unwords ["b =", show b]) $ nf (Ring.gcd second) b | b <- testList]
         , bgroup "Euclidean" [ bench (unwords ["b =", show b]) $ nf (Euclid.gcd second) b | b <- testList]
         ]
-      , bgroup (show third)
+      , bgroup "leo(83)"
         [ bgroup "Ring" [ bench (unwords ["b =", show b]) $ nf (Ring.gcd third) b | b <- testList]
         , bgroup "Euclidean" [ bench (unwords ["b =", show b]) $ nf (Euclid.gcd third) b | b <- testList]
         ]
       ]
     , bgroup "egcd"
-      [ bgroup (show first)
+      [ bgroup "leo(21)"
         [ bgroup "Ring" [ bench (unwords ["b =", show b]) $ nf (Ring.egcd first) b | b <- testList ]
         , bgroup "Euclidean" [ bench (unwords ["b =", show b]) $ nf (Euclid.egcd first) b | b <- testList]
         ]
-      , bgroup (show second)
+      , bgroup "leo(57)"
         [ bgroup "Ring" [ bench (unwords ["b =", show b]) $ nf (Ring.egcd second) b | b <- testList]
         , bgroup "Euclidean" [ bench (unwords ["b =", show b]) $ nf (Euclid.egcd second) b | b <- testList]
         ]
-      , bgroup (show third)
+      , bgroup "leo(83)"
         [ bgroup "Ring" [ bench (unwords ["b =", show b]) $ nf (Ring.egcd third) b | b <- testList]
         , bgroup "Euclidean" [ bench (unwords ["b =", show b]) $ nf (Euclid.egcd third) b | b <- testList]
         ]
