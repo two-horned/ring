@@ -3,20 +3,8 @@
 
 use criterion::{criterion_main, criterion_group, Criterion};
 
-const FIRST: i128 = fib(170);
-const SECOND: i128 = fib(180);
-
-const fn fib(n: i128) -> i128 {
-    if n < 0 { return 0; }
-
-    let mut n = n;
-    let mut a = 0;
-    let mut b = 1;
-
-    while 0 < n { (a, b) = (b, a+b); n -= 1; }
-
-    return b;
-}
+const FIRST: i128 = 3;
+const SECOND: i128 = 2^56 + 1;
 
 fn quot_test(a: i128, b: i128) -> (i128, i128) {
     let q = b / a;
