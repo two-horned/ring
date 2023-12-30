@@ -32,7 +32,7 @@ lcm a b = (a `quot` gcd a b) * b
 -- | @'egcd' @a @b returns a valid s and t that solve
 --   gcd(a,b) = sa + tb. Meaning it's the extended gcd.
 egcd :: Integral a => a -> a -> (a, a)
-egcd 0 !y = (0, signum y)                  -- Filter edge case, to avoid dividing with zero
+egcd 0 y = (0, signum y)                   -- Filter edge case, to avoid dividing with zero
 egcd x y = (s, t)
   where 
     go 0 !b  _ !v = (v, b)
