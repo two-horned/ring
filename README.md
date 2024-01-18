@@ -51,17 +51,28 @@ our initial problem was maximal of size `a`
 but now we are dealing with maximal half the steps
 required (biggest part of two is exact half).
 
-Applying this halfing of two numbers recursively
-will mean, our problem has a worst case of less or equal than `log_2 a` steps (`O(log n)`),
-and most of the time it will perform way better, because the average case
-is far from always triggering this case of always halfing exactly 
-(we could've tried to find a better fit for an upper bound but it's not necessary).
+### Runtime analysis
+The runtime of my algorithm can be derived
+in this manner. We solve, which smallest numbers
+with `b >= a` (without loss of generality) will
+produce an amount of steps required when running the algorithm.
 
-With the euclidean algorithm we don't reduce the
-initial problem as fast (it's already easy to tell,
-that our step case is decreasing much faster),
-and the worst case is approaching `5 * log_10 a` (proof can be found online),
-which is far worse, even if it is asymptotically equal.
+Steps | a | b
+---
+1     | 0                   | 1
+2     | 1                   | 1
+3     | 2                   | 3
+4     | 5                   | 7
+5     | 12                  | 17
+n     | sum of values above | above a + sum of values above
+
+We can clearly see, the only way to reach a new number
+of steps is by defining a new `a` as the sum a previous
+line due to us passing `gcd(a - r, r)` to reduce the problem
+(`(a - r) + r = a`). The smallest value to generate the needed remainder
+and it's inverse is `a` because we assume that's the smaller of the
+two numbers. Our worst case lies between `[1/2 log_ϕ (min {a,b}), log_2 (min{a,b})]`,
+which is around twice as fast as the Euclidean algorithm.
 
 ### Pseudocode
 #### Recursive
@@ -160,7 +171,7 @@ egcd(a, b) {
 }
 ```
 
-### Iterative
+#### Iterative
 
 This solution requires you to wrap your head around
 and try to find the meaning of what it means if we
@@ -173,7 +184,7 @@ contact me and we can discuss this in more detail.
 ```java
 egcd(a, b) {
   if (b == 0)                // Edge case. We don't want to
-    return (signum(a), 0)   // divide with zero in the future.
+    return (signum(a), 0)    // divide with zero in the future.
 
   x = |a|
   y = |b|
@@ -181,7 +192,7 @@ egcd(a, b) {
   s = 0
   t = 1
 
-  while x != 0 {
+  while (x != 0) {
     if y < x {
       (x,y) = (y,x)
       (s,t) = (t,s)
