@@ -1,8 +1,18 @@
 # Java Implementation
+
 The java code contains a comparison
 between the method I introduced
 as `ring` method and the classical euclidean method,
 to calcutate the gcd.
+
+## Warning
+I haven't put as much time and effort into this
+implementation and the "benchmarking" results are
+far from being in an acceptable format. Please
+take a look at the [Rust implementation](https://github.com/two-horned/ring/tree/main/Rust/ring)
+for a more serious imperative solution or
+the [Haskel implementation](https://github.com/two-horned/ring/tree/main/Haskell/Ring)
+for the declerative or functional approach.
 
 # Testing
 It's required to use JUnit 5 as testing suite.
