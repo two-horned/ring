@@ -78,7 +78,7 @@ as only the minimum of `a` and `b` is of significance in our algorithm
 for the reduction process. Filtering only for the first column will
 give us the [lambda numbers](https://oeis.org/A000129).
 Division of a large lambda number with its predecessor will give us
-the [silver ratio](the https://en.wikipedia.org/wiki/Silver_ratio),
+the [silver ratio](https://en.wikipedia.org/wiki/Silver_ratio),
 which is `1 + sqrt(2)`. 
 
 This means the worst case runtime is `log_(1+sqrt(2)) (min{a,b})`,
