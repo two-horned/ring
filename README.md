@@ -64,15 +64,29 @@ Steps | a                   | b
 3     | 2                   | 3
 4     | 5                   | 7
 5     | 12                  | 17
-n     | sum of values above | above a + sum of values above
+n     | sum of line above   | above a + sum of line above
 
 We can clearly see, the only way to reach a new number
 of steps is by defining a new `a` as the sum a previous
 line due to us passing `gcd(a - r, r)` to reduce the problem
 (`(a - r) + r = a`). The smallest value to generate the needed remainder
 and it's inverse is `a` because we assume that's the smaller of the
-two numbers. Our worst case lies between `[1/2 log_ϕ (min {a,b}), log_2 (min{a,b})]`,
-which is around twice as fast as the Euclidean algorithm.
+two numbers. We can see,
+that we see numbers occuring in [a Farey fraction approximation for sqrt(2)](https://oeis.org/A002965),
+however, only the first column is relevant to determine the runtime,
+as only the minimum of `a` and `b` is of significance in our algorithm
+for the reduction process. Filtering only for the first column will
+give us the [lambda numbers](https://oeis.org/A000129).
+Division of a large lambda number with its predecessor will give us
+the [silver ratio](the https://en.wikipedia.org/wiki/Silver_ratio),
+which is `1 + sqrt(2)`. 
+
+This means the worst case runtime is `log_(1+sqrt(2)) (min{a,b})`,
+which around twice as fast as the Euclidean algorithm (which has `log_ϕ (min{a,b})`).
+
+When we calculate fibonacci numbers (or any other two numbers with a ratio close to the golden ratio),
+we are actually twice as fast compared to the Euclidean algorithm,
+due to us being able to replicate two steps of the Euclidean algorithm at once.
 
 ### Pseudocode
 #### Recursive
