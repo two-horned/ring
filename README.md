@@ -58,7 +58,7 @@ with `b >= a` (without loss of generality) will
 produce an amount of steps required when running the algorithm.
 
 Steps | a                   | b
---------------------------------
+------|---------------------|---
 1     | 0                   | 1
 2     | 1                   | 1
 3     | 2                   | 3
