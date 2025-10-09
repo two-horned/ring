@@ -11,7 +11,7 @@ implementation and the "benchmarking" results are
 far from being in an acceptable format. Please
 take a look at the [Rust implementation](https://github.com/two-horned/ring/tree/main/Rust/ring)
 for a more serious imperative solution or
-the [Haskel implementation](https://github.com/two-horned/ring/tree/main/Haskell/Ring)
+the [Haskell implementation](https://github.com/two-horned/ring/tree/main/Haskell/Ring)
 for the declerative or functional approach.
 
 # Testing

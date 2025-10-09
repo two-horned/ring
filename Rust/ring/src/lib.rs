@@ -16,7 +16,7 @@ pub fn gcd(a: i64, b: i64) -> i64 {
 }
 
 pub fn egcd(a: i64, b: i64) -> (i64, i64) {
-    if b == 0 { return (a.signum(), 0); }
+    if a == 0 { return (0, b.signum()); }
 
     let mut x = a.abs();
     let mut y = b.abs();

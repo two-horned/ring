@@ -197,8 +197,8 @@ contact me and we can discuss this in more detail.
 
 ```java
 egcd(a, b) {
-  if (b == 0)                // Edge case. We don't want to
-    return (signum(a), 0)    // divide with zero in the future.
+  if (a == 0)                // Edge case. We don't want to
+    return (0, signum(b))    // divide with zero in the future.
 
   x = |a|
   y = |b|
